@@ -7,5 +7,6 @@ public class Main {
 		System.out.println("hello");
 		System.out.println("my name is jaewook");
 		System.out.println("테스트");
+		System.out.println("테스트2");
 	}
 }
