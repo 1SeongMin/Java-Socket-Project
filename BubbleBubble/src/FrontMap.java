@@ -16,7 +16,7 @@ public class FrontMap extends JPanel {
 	}
 
 	private void initObject() {
-		bgIcon = new ImageIcon("image/backgroundMap.png");
+		bgIcon = new ImageIcon("image/round02_back.png");
 		bgImg = bgIcon.getImage();
 	}
 	

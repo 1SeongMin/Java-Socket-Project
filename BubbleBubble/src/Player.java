@@ -27,8 +27,8 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initSetting() {
-		x = 55;
-		y = 535;
+		x = 65;
+		y = 605;
 
 		direction = Direction.RIGHT; // 1
 
