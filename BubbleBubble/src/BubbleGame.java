@@ -1,5 +1,4 @@
-
-
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -19,15 +18,16 @@ public class BubbleGame extends JFrame {
 
 	private void initObject() {
 		frontMap = new FrontMap();
-		player = new Player();
+		player = new Player(); //플레이어 생성 
 	}
 
 	private void initSetting() {
-		setSize(1000, 640);
+		setSize(1000, 780);
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setContentPane(frontMap);
+		frontMap.setBackground(Color.BLACK);
 		add(player);
 	}
 
@@ -63,7 +63,4 @@ public class BubbleGame extends JFrame {
 		});
 	}
 
-	public static void main(String[] args) {
-		new BubbleGame();
-	}
 }

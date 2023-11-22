@@ -1,5 +1,4 @@
 
-
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -29,6 +28,6 @@ public class FrontMap extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// 배경이미지를 x=0, y=0 좌표에 그린다. 대상은 JPanel 즉 frontMap
-		g.drawImage(bgImg, 0,0, this);
+		g.drawImage(bgImg, 0,80, this);
 	}
 }

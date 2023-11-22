@@ -1,12 +1,10 @@
-
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 	int x;
 	int y;
-	Direction direction;
+	Direction direction; //LEFT, RIGHT, UP, DOWN;
 	boolean left;
 	boolean right;
 	boolean up;
