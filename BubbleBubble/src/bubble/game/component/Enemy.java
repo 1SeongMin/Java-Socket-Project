@@ -4,8 +4,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import bubble.game.BubbleFrame;
-import bubble.game.BubbleFrame2;
-import bubble.game.BubbleFrame3;
 import bubble.game.Moveable;
 import bubble.game.service.BackgroundEnemyService;
 import bubble.game.state.EnemyWay;
@@ -17,8 +15,6 @@ import lombok.Setter;
 public class Enemy extends JLabel implements Moveable {
 
 	private BubbleFrame mContext;
-	private BubbleFrame mContext2;
-	private BubbleFrame mContext3;
 	private Player player; // 플레이어 추가. 
 	
 	// 위치 상태
@@ -51,24 +47,6 @@ public class Enemy extends JLabel implements Moveable {
 		initEnemyDirection(enemyWay);
 	}
 
-	public Enemy(BubbleFrame2 mContext2, EnemyWay enemyWay) {
-	    this.mContext2 = mContext; // 오타 수정
-	    this.player = mContext2.getPlayer();
-	    initObject();
-	    initSetting();
-	    initBackgroundEnemyService();
-	    initEnemyDirection(enemyWay);
-	}
-
-	public Enemy(BubbleFrame3 mContext3, EnemyWay enemyWay) {
-	    this.mContext3 = mContext; // 오타 수정
-	    this.player = mContext3.getPlayer();
-	    initObject();
-	    initSetting();
-	    initBackgroundEnemyService();
-	    initEnemyDirection(enemyWay);
-	}
-
 	private void initObject() {
 		enemyR = new ImageIcon("image/enemyR.png");
 		enemyL = new ImageIcon("image/enemyL.png");
@@ -90,14 +68,15 @@ public class Enemy extends JLabel implements Moveable {
 	}
 	
 	private void initEnemyDirection(EnemyWay enemyWay) {
-	    this.enemyWay = enemyWay;
-	    if (EnemyWay.RIGHT == enemyWay) {
-	        setIcon(enemyR);
-	        right();
-	    } else {
-	        setIcon(enemyL);
-	        left();
-	    }
+		if(EnemyWay.RIGHT == enemyWay) {
+			enemyWay = EnemyWay.RIGHT;
+			setIcon(enemyR);
+			right();
+		}else {
+			enemyWay = EnemyWay.LEFT;
+			setIcon(enemyL);
+			left();
+		}
 	}
 	
 	private void initBackgroundEnemyService() {

@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import bubble.game.BubbleFrame;
-import bubble.game.BubbleFrame2;
-import bubble.game.BubbleFrame3;
 
 public class Level extends JFrame {
 	
@@ -72,7 +70,7 @@ public class Level extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose(); // 시작 화면 프레임 닫기
-                new BubbleFrame2(); // BubbleGame 호출
+                new BubbleFrame(); // BubbleGame 호출
             }
         });
     }
@@ -96,7 +94,7 @@ public class Level extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose(); // 시작 화면 프레임 닫기
-                new BubbleFrame3(); // BubbleGame 호출
+                new BubbleFrame(); // BubbleGame 호출
             }
         });
     }

@@ -36,7 +36,7 @@ public class BubbleFrame extends JFrame {
 	}
 
 	private void initObject() {
-		backgroundMap = new JLabel(new ImageIcon("image/round01.png"));
+		backgroundMap = new JLabel(new ImageIcon("image/backgroundMap.png"));
 		setContentPane(backgroundMap);
 		player = new Player(mContext);
 		add(player);

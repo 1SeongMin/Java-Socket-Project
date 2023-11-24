@@ -21,8 +21,6 @@ public class Bubble extends JLabel implements Moveable{
 	private List<Enemy> enemys;
 	private Enemy removeEnemy = null; // 적 제거 변수. 
 	private BackgroundBubbleService backgroundBubbleService;
-	private BackgroundBubbleService backgroundBubbleService2;
-	
 	
 	// 위치 상태
 	private int x;
@@ -41,13 +39,11 @@ public class Bubble extends JLabel implements Moveable{
 	private ImageIcon bomb; // 물방울이 터진 상태
 
 	public Bubble(BubbleFrame mContext) {
-        if (mContext != null && player != null) {
-            this.mContext = mContext;
-            this.player = player;
-            this.enemys = mContext.getEnemys();
-            initObject();
-            initSetting();
-        } else {}
+		this.mContext = mContext;
+		this.player = mContext.getPlayer();
+		this.enemys = mContext.getEnemys();
+		initObject();
+		initSetting();
 	}
 	
 	private void initObject() {

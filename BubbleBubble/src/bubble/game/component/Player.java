@@ -7,8 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import bubble.game.BubbleFrame;
-import bubble.game.BubbleFrame2;
-import bubble.game.BubbleFrame3;
 import bubble.game.Moveable;
 import bubble.game.music.GameOverBGM;
 import bubble.game.service.BackgroundPlayerService;
@@ -22,8 +20,6 @@ import lombok.Setter;
 public class Player extends JLabel implements Moveable {
 
 	private BubbleFrame mContext;
-	private BubbleFrame mContext2;
-	private BubbleFrame mContext3;
 	private List<Bubble> bubbleList;
 	private GameOver gameOver;
 	
@@ -54,20 +50,6 @@ public class Player extends JLabel implements Moveable {
 
 	public Player(BubbleFrame mContext) {
 		this.mContext = mContext;
-		initObject();
-		initSetting();
-		initBackgroundPlayerService();
-	}
-
-	public Player(BubbleFrame2 mContext) {
-		this.mContext = mContext2;
-		initObject();
-		initSetting();
-		initBackgroundPlayerService();
-	}
-
-	public Player(BubbleFrame3 mContext) {
-		this.mContext = mContext3;
 		initObject();
 		initSetting();
 		initBackgroundPlayerService();
