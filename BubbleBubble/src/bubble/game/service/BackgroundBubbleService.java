@@ -46,5 +46,4 @@ public class BackgroundBubbleService{
 		}
 		return false;
 	}
-
 }

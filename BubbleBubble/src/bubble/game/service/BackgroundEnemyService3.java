@@ -104,7 +104,5 @@ public class BackgroundEnemyService3 implements Runnable{
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }

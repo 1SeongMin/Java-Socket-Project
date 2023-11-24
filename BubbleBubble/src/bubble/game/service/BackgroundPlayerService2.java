@@ -86,7 +86,5 @@ public class BackgroundPlayerService2 implements Runnable{
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }

@@ -46,7 +46,4 @@ public class GameOver extends JLabel{
 		setLocation(20,40);
 		
 	}
-
-
-
 }

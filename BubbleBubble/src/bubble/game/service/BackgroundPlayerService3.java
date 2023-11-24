@@ -86,7 +86,5 @@ public class BackgroundPlayerService3 implements Runnable{
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }
