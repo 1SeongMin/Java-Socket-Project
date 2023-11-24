@@ -12,7 +12,7 @@ import lombok.Setter;
 public class GameOver extends JLabel{
 	
 	// 의존성 콤포지션
-	private BubbleFrame mContext;
+	private static BubbleFrame mContext;
 	
 	// 위치 상태
 	private int x;

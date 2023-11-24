@@ -1,14 +1,8 @@
 package bubble.game.component;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import bubble.game.BubbleFrame;
 
@@ -30,7 +24,7 @@ public class Level extends JFrame {
 	
 	public void setStartButton1() {
 		startBtn = new JButton("LEVEL 1");
-        startBtn.setBounds(210,482,200,50);
+        startBtn.setBounds(176,482,200,50);
         startBtn.setBorderPainted(false); // 버튼 테두리 설정
         startBtn.setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
         startBtn.setFocusPainted(false); // 포커스 표시 설정
@@ -51,10 +45,9 @@ public class Level extends JFrame {
         });
     }
 	
-	
 	public void setStartButton2() {
 		startBtn = new JButton("LEVEL 2");
-        startBtn.setBounds(420,482,200,50);
+        startBtn.setBounds(410,482,200,50);
         startBtn.setBorderPainted(false); // 버튼 테두리 설정
         startBtn.setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
         startBtn.setFocusPainted(false); // 포커스 표시 설정
@@ -75,10 +68,9 @@ public class Level extends JFrame {
         });
     }
 	
-	
 	public void setStartButton3() {
 		startBtn = new JButton("LEVEL 3");
-        startBtn.setBounds(630,482,200,50);
+        startBtn.setBounds(651,482,200,50);
         startBtn.setBorderPainted(false); // 버튼 테두리 설정
         startBtn.setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
         startBtn.setFocusPainted(false); // 포커스 표시 설정

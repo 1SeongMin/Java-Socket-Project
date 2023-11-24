@@ -1,15 +1,10 @@
 package bubble.game.component;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import bubble.game.BubbleFrame;
 
 public class Main extends JFrame {
 	
@@ -45,7 +40,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose(); // 시작 화면 프레임 닫기
-                new Level(); // Level 호출
+                new Level(); // BubbleGame 호출
             }
         });
     }
