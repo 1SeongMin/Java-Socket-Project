@@ -46,8 +46,14 @@ public class Player extends JLabel implements Moveable {
 	private final int SPEED = 4;
 	private final int JUMPSPEED = 2; // up, down
 	
-	private int state = 0; // 0 : live , 1 : die
+	//플레이어의 생명 상태
+	private int state = 0; // 0 : 생존 , 1 : 죽음
 	private boolean life_state = false;
+	
+	//플레이어의 무적 (적과 부딫히면 3초간 무적)
+	private boolean invincible = false; // 무적 상태를 나타내는 플래그
+	private final int INVINCIBLE_TIME = 3000; // 무적 지속 시간 (밀리초)
+
 
 	private ImageIcon playerR, playerL, playerRdie, playerLdie;
 
@@ -87,13 +93,29 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void reduceLife() {
-		if (life > 0)
-			life--;
-		if (life < 0) this.die();
-	}
-	public int getLife() {
-		return this.life;
-	}
+        if (!invincible) { // 무적 아닌 경우만 데미지를 받음
+            if (life > 0) {
+                life--;
+                System.out.println("남은 체력: " + life);
+                mContext.removePlayerLife(life);
+            } else { //체력이 0보다 낮아지면 죽음
+                setState(1);
+            }
+
+            // 무적 상태 설정
+            invincible = true;
+
+            // 무적 시간이 지나면 무적 상태를 해제
+            new Thread(() -> {
+                try {
+                    Thread.sleep(INVINCIBLE_TIME);
+                    invincible = false; // 무적 상태 해제
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    }
 	
 	private void initBackgroundPlayerService() {
 		new Thread(new BackgroundPlayerService(this)).start();

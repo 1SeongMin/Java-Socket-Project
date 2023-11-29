@@ -40,7 +40,7 @@ public class BackgroundEnemyService implements Runnable{
 			
 			// 바닥 충돌 확인
 			if(bottomColor != -2) { // 흰색이 아닐때. 
-				System.out.println("바텀 칼러 : "+bottomColor);
+				//System.out.println("바텀 칼러 : "+bottomColor);
 				//System.out.println("바닥에 충돌함");
 				enemy.setDown(false);
 			}else { // -2 일때 실행됨 => 내 바닥색깔이 하얀색이라는 것

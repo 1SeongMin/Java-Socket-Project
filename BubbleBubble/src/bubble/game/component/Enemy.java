@@ -96,6 +96,8 @@ public class Enemy extends JLabel implements Moveable {
 				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
 					if (player.getState() == 0 && getState() == 0) 
 						player.reduceLife(); //목숨 감소
+					if (player.getState() == 1 && getState() == 0) 
+						player.die(); 
 				}
 				try {
 					Thread.sleep(10); // 0.01초
@@ -120,6 +122,8 @@ public class Enemy extends JLabel implements Moveable {
 				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
 					if (player.getState() == 0 && getState() == 0) 
 						player.reduceLife(); //목숨 감소
+					if (player.getState() == 1 && getState() == 0) 
+						player.die(); 
 				}
 				try {
 					Thread.sleep(10); // 0.01초
@@ -143,6 +147,8 @@ public class Enemy extends JLabel implements Moveable {
 				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
 					if (player.getState() == 0 && getState() == 0) 
 						player.reduceLife(); //목숨 감소
+					if (player.getState() == 1 && getState() == 0) 
+						player.die(); 
 				}
 				try {
 					Thread.sleep(5);
