@@ -10,6 +10,8 @@ import bubble.game.BubbleFrame;
 import bubble.game.Moveable;
 import bubble.game.music.GameOverBGM;
 import bubble.game.service.BackgroundPlayerService;
+import bubble.game.service.BackgroundPlayerService2;
+import bubble.game.service.BackgroundPlayerService3;
 import bubble.game.state.PlayerWay;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Setter
 public class Player extends JLabel implements Moveable {
 
-	private BubbleFrame mContext;
+	private BubbleFrame bubbleFrame;
 	private List<Bubble> bubbleList;
 	private GameOver gameOver;
 	
@@ -57,8 +59,8 @@ public class Player extends JLabel implements Moveable {
 
 	private ImageIcon playerR, playerL, playerRdie, playerLdie;
 
-	public Player(BubbleFrame mContext) {
-		this.mContext = mContext;
+	public Player(BubbleFrame bubbleFrame) {
+		this.bubbleFrame = bubbleFrame;
 		initObject();
 		initSetting();
 		initBackgroundPlayerService();
@@ -74,6 +76,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initSetting() {
+		
 		x = 65; // 80 -> 65 
 		y = 585; //535 -> 585
 
@@ -92,12 +95,13 @@ public class Player extends JLabel implements Moveable {
 		setLocation(x, y);
 	}
 	
+	//목숨 감소 함수
 	public void reduceLife() {
         if (!invincible) { // 무적 아닌 경우만 데미지를 받음
             if (life > 0) {
                 life--;
                 System.out.println("남은 체력: " + life);
-                mContext.removePlayerLife(life);
+                bubbleFrame.removePlayerLife(life);
             } else { //체력이 0보다 낮아지면 죽음
                 setState(1);
             }
@@ -116,16 +120,22 @@ public class Player extends JLabel implements Moveable {
             }).start();
         }
     }
+	public void plusScore(int score) {
+		bubbleFrame.addScore(score);
+	}
 	
+	//레벨에 맞게 백그라운드 서비스 스레드로 동자 시키는 함수
 	private void initBackgroundPlayerService() {
-		new Thread(new BackgroundPlayerService(this)).start();
+		if(bubbleFrame.getLevel() ==1) new Thread(new BackgroundPlayerService(this)).start();
+		else if(bubbleFrame.getLevel() ==2) new Thread(new BackgroundPlayerService2(this)).start();
+		//else new Thread(new BackgroundPlayerService3(this)).start();
 	}
 	
 	@Override
 	public void attack() {
 		new Thread(()->{
-			Bubble bubble = new Bubble(mContext);
-			mContext.add(bubble);
+			Bubble bubble = new Bubble(bubbleFrame);
+			bubbleFrame.add(bubble);
 			bubbleList.add(bubble);
 			if(playerWay == PlayerWay.LEFT) {
 				bubble.left();
@@ -138,7 +148,7 @@ public class Player extends JLabel implements Moveable {
 	// 이벤트 핸들러
 	@Override
 	public void left() {
-		System.out.println("left");
+		//System.out.println("left");
 		playerWay = PlayerWay.LEFT;
 		left = true;
 		new Thread(()-> {
@@ -222,15 +232,15 @@ public class Player extends JLabel implements Moveable {
 			setState(1); //플레이어를 사망 상태로 설정
 			setIcon(PlayerWay.RIGHT == playerWay ? playerRdie : playerLdie);
 			new GameOverBGM();
-			mContext.getBgm().stopBGM(); //음악이 멈춤
+			bubbleFrame.getBgm().stopBGM(); //음악이 멈춤
 
 			try {				
 				if(!isUp() && !isDown()) up();
-				gameOver = new GameOver(mContext);
-				mContext.add(gameOver);
+				gameOver = new GameOver(bubbleFrame);
+				bubbleFrame.add(gameOver);
 				Thread.sleep(2000);
-				mContext.remove(this);
-				mContext.repaint();
+				bubbleFrame.remove(this);
+				bubbleFrame.repaint();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

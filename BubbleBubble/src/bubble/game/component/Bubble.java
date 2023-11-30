@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Bubble extends JLabel implements Moveable{
 	
 	// 의존성 콤포지션
-	private BubbleFrame mContext;
+	private BubbleFrame bubbleFrame;
 	private Player player;
 	private List<Enemy> enemys;
 	private Enemy removeEnemy = null; // 적 제거 변수. 
@@ -38,10 +38,10 @@ public class Bubble extends JLabel implements Moveable{
 	private ImageIcon bubbled; // 적을 가둔 물방울
 	private ImageIcon bomb; // 물방울이 터진 상태
 
-	public Bubble(BubbleFrame mContext) {
-		this.mContext = mContext;
-		this.player = mContext.getPlayer();
-		this.enemys = mContext.getEnemys();
+	public Bubble(BubbleFrame bubbleFrame) {
+		this.bubbleFrame = bubbleFrame;
+		this.player = bubbleFrame.getPlayer();
+		this.enemys = bubbleFrame.getEnemys();
 		initObject();
 		initSetting();
 	}
@@ -158,13 +158,13 @@ public class Bubble extends JLabel implements Moveable{
 	}
 	
 	@Override
-	public void attack(Enemy e) {
+	public void attack(Enemy e) { //적이 버블에 같힘
 		state = 1;
 		e.setState(1);
 		setIcon(bubbled);
 		removeEnemy = e;
-		mContext.remove(e); // 메모리에서 사라지게 한다. (가비지 컬렉션->즉시 발동하지 않음)
-		mContext.repaint(); // 화면 갱신
+		bubbleFrame.remove(e); // 메모리에서 사라지게 한다. (가비지 컬렉션->즉시 발동하지 않음)
+		bubbleFrame.repaint(); // 화면 갱신
 	}
 	
 	
@@ -175,9 +175,9 @@ public class Bubble extends JLabel implements Moveable{
 			setIcon(bomb);
 			Thread.sleep(500);
 			// 버블 객체 메모리에서 날리기
-			mContext.getPlayer().getBubbleList().remove(this);
-			mContext.remove(this); // BubbleFrame의 bubble이 메모리에서 소멸된다.
-			mContext.repaint(); // BubbleFrame의 전체를 다시 그린다. (메모리에서 없는 건 그리지 않음)
+			bubbleFrame.getPlayer().getBubbleList().remove(this);
+			bubbleFrame.remove(this); // BubbleFrame의 bubble이 메모리에서 소멸된다.
+			bubbleFrame.repaint(); // BubbleFrame의 전체를 다시 그린다. (메모리에서 없는 건 그리지 않음)
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -189,12 +189,13 @@ public class Bubble extends JLabel implements Moveable{
 			try {
 				up = false;
 				setIcon(bomb);
+				
 				Thread.sleep(1000);
 				// 버블 객체 메모리에서 날리기
-				mContext.getPlayer().getBubbleList().remove(this);
-				mContext.getEnemys().remove(removeEnemy); // 컨텍스트에 enemy 삭제 
-				mContext.remove(this);
-				mContext.repaint();
+				bubbleFrame.getPlayer().getBubbleList().remove(this);
+				bubbleFrame.getEnemys().remove(removeEnemy); // 컨텍스트에 enemy 삭제 
+				bubbleFrame.remove(this);
+				bubbleFrame.repaint();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

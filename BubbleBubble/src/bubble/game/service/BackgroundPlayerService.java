@@ -41,6 +41,7 @@ public class BackgroundPlayerService implements Runnable{
 							Math.abs(player.getY() - bubble.getY()) > 0 && Math.abs(player.getY() - bubble.getY()) < 50 ) {
 						System.out.println("적군 사살 완료");
 						bubble.clearBubbled();
+						player.plusScore(100);
 						break;
 					}
 				}
@@ -48,11 +49,12 @@ public class BackgroundPlayerService implements Runnable{
 			
 			// 2. 벽 충돌 체크
 			// 색상 확인
-			Color leftColor = new Color(image.getRGB(player.getX() - 5, player.getY() - 25));
-			Color rightColor = new Color(image.getRGB(player.getX() + 80, player.getY() - 25));
+			
+			Color leftColor = new Color(image.getRGB(player.getX() - 5, player.getY() - 45));
+			Color rightColor = new Color(image.getRGB(player.getX() + 80, player.getY() - 45));
 			// -2가 나온다는 뜻은 바닥에 색깔이 없이 흰색
-			int bottomColor = image.getRGB(player.getX() + 25, player.getY() - 8) // -1
-					+ image.getRGB(player.getX()+55, player.getY() - 8); // -1
+			int bottomColor = image.getRGB(player.getX() + 25, player.getY() + 8) // -1
+					+ image.getRGB(player.getX()+55, player.getY() + 8); // -1
 			
 			// 바닥 충돌 확인
 			if(bottomColor != -2) {
@@ -75,7 +77,7 @@ public class BackgroundPlayerService implements Runnable{
 				//System.out.println("오른쪽 벽에 충돌함");
 				player.setRightWallCrash(true);
 				player.setRight(false);
-			}else {
+			} else {
 				player.setLeftWallCrash(false);
 				player.setRightWallCrash(false);
 			}
