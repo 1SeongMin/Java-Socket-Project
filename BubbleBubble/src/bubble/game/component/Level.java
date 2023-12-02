@@ -26,9 +26,8 @@ public class Level extends JFrame {
 	private JLabel player2_img;
 	private String name;
 
-	public Level(String playerName) {
-		this.name = playerName;
-		server = new JavaChatServer();
+	public Level(JavaChatServer server) {
+		this.server = server;
 		setFrame();
 		setStartButton1();
 		setStartButton2();
@@ -61,28 +60,29 @@ public class Level extends JFrame {
 		player_name1.setFont(font1);
 		player_name2.setFont(font1); 
 		
-		System.out.println(name + " 응");
-
-		if(name != null) {
-			player_num.setText("1");
-			player_name1.setText(name);
-			player1_img.setIcon(img1); 
-		}
-	
-		String p1_name = player_name1.getText();
-		if (p1_name != null) {
-			player_num.setText("2");
-			player_name2.setText(name);
-			player2_img.setIcon(img2);
-		}		
-		
 		frame.getContentPane().add(player_num);
 		frame.getContentPane().add(player_name1);
 		frame.getContentPane().add(player_name2);
 		frame.getContentPane().add(player1_img); // 첫 번째 플레이어 이미지 레이블 추가
 	    frame.getContentPane().add(player2_img); // 두 번째 플레이어 이미지 레이블 추가
 	    frame.setVisible(true);
-			
+	}
+	
+	public void addPlayer(String name) {
+		if (server.getUserName() != null) { // 클라이언트 수가 1명일 때  
+        
+            player_num.setText("1");
+            player_name1.setText(name); // 플레이어 1의 이름 설정
+            player1_img.setIcon(img1);
+        } 
+		
+		else if (player_name1 == null) { // 클라이언트 수가 2명일 때
+           
+            player_num.setText("2");
+            player_name2.setText(name); // 플레이어 2의 이름 설정
+            player2_img.setIcon(img2);
+        }
+		 frame.repaint();
 	}
 	
 	public void setStartButton1() {
@@ -164,6 +164,6 @@ public class Level extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Level(null);
+		//new Level(null);
 	}
 }

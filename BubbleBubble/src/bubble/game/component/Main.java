@@ -15,11 +15,14 @@ public class Main extends JFrame {
 	private JButton startBtn;
 	private JLabel img_label;
 	private JTextField textField;
-	private JavaChatServer server;
-	private String playerName;
 	
-	public Main() {
-		server = new JavaChatServer();
+	private String playerName;
+	private static JavaChatServer server;
+	private Level levelInstance;
+	private Level levelPanel;
+	
+	public Main(JavaChatServer server) {
+		this.server = server;
 		setFrame();
 		setImage();
 		setStartButton();
@@ -39,20 +42,26 @@ public class Main extends JFrame {
         addActionToStartButton();
     }
 	
-	public void addActionToStartButton() {
-	    startBtn.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            playerName = textField.getText(); // 텍스트 필드에서 입력된 이름 가져오기
-	            
-	            if (!playerName.isEmpty()) { // 이름 있는 경우만 서버에 클라이언트 추가
-	                server.addClient(playerName); //클라이언트 추가
+	 public void addActionToStartButton() {
+	        startBtn.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                playerName = textField.getText(); // 텍스트 필드에서 입력된 이름 가져오기
+
+	                if (!playerName.isEmpty()) { // 이름 있는 경우만 서버에 클라이언트 추가
+	                    server.addClient(playerName); // 클라이언트 추가
+
+	                    if (levelInstance == null) { // Level 인스턴스가 없는 경우에만 생성
+	                        levelInstance = new Level(server); // Level 인스턴스 생성
+	                    }
+
+	                    // 레벨 창에 클라이언트 추가
+	                    levelInstance.addPlayer(playerName); // 이 부분은 Level 클래스에 해당하는 메서드로 변경해야 함
+	                }
+	                frame.dispose(); // 시작 화면 프레임 닫기
 	            }
-	            frame.dispose(); // 시작 화면 프레임 닫기
-	            new Level(playerName); // BubbleGame 호출
-	        }
-	    });
-	}
+	        });
+	    }
 	
 	public void setImage() {
 		img_label = new JLabel(img_icon);
@@ -77,6 +86,7 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Main();
+		JavaChatServer server = JavaChatServer.getInstance(); 
+		new Main(server);
 	}
 }
