@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import bubble.game.BubbleFrame;
+import bubble.game.server.JavaChatServer;
 
 public class Main extends JFrame {
 	
@@ -14,11 +15,14 @@ public class Main extends JFrame {
 	private JButton startBtn;
 	private JLabel img_label;
 	private JTextField textField;
+	private JavaChatServer server;
+	private String playerName;
 	
 	public Main() {
+		server = new JavaChatServer();
 		setFrame();
-		setStartButton();
 		setImage();
+		setStartButton();
 	}
 	
 	public void setStartButton() {
@@ -36,14 +40,19 @@ public class Main extends JFrame {
     }
 	
 	public void addActionToStartButton() {
-        startBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // 시작 화면 프레임 닫기
-                new Level(); // BubbleGame 호출
-            }
-        });
-    }
+	    startBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            playerName = textField.getText(); // 텍스트 필드에서 입력된 이름 가져오기
+	            
+	            if (!playerName.isEmpty()) { // 이름 있는 경우만 서버에 클라이언트 추가
+	                server.addClient(playerName); //클라이언트 추가
+	            }
+	            frame.dispose(); // 시작 화면 프레임 닫기
+	            new Level(playerName); // BubbleGame 호출
+	        }
+	    });
+	}
 	
 	public void setImage() {
 		img_label = new JLabel(img_icon);

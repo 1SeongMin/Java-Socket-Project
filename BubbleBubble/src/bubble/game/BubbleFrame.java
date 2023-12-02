@@ -43,7 +43,6 @@ public class BubbleFrame extends JFrame {
 	private JLabel score;
 	private JLabel total_score ;
 
-	
 	// 플레이어1의 목숨 저장하는 배열 (하트)
 	private JLabel[] player1LifeLabels;
 	
