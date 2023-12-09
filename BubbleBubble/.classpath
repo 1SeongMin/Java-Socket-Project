@@ -11,7 +11,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Seongmin/eclipse/jee-2023-03/eclipse/lombok.jar">
+	<classpathentry kind="lib" path="C:/Users/Seongmin/eclipse/jee-2022-12/eclipse/lombok.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
