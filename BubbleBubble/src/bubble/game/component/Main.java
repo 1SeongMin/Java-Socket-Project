@@ -1,73 +1,89 @@
 package bubble.game.component;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-
-import bubble.game.BubbleFrame;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
-	
-	private ImageIcon img_icon = new ImageIcon("image/game_intro.png");
-	private Font font1 = new Font("D2Coding", Font.CENTER_BASELINE, 20);
-	private JFrame frame;
+	private Image img_icon;
+	private Font font1 = new Font("d2coding", Font.CENTER_BASELINE, 20);
 	private JButton startBtn;
 	private JLabel img_label;
 	private JTextField textField;
-	
-	public Main() {
+
+	private JFrame mainFrame;
+	private JPanel mainPanel; // Main 클래스의 패널
+	private Level level; //Level 클래스
+
+	public Main() {	
 		setFrame();
-		setStartButton();
 		setImage();
+		setStartButton();
+		mainFrame.setVisible(true);
 	}
 	
 	public void setStartButton() {
-		startBtn = new JButton("Game Start");
-        startBtn.setBounds(400,450,200,50);
+		startBtn = new JButton("JOIN");
+        startBtn.setBounds(400,440,200,50);
         startBtn.setBorderPainted(false); // 버튼 테두리 설정
         startBtn.setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
         startBtn.setFocusPainted(false); // 포커스 표시 설정
         startBtn.setFont(font1); //폰트 설정
         startBtn.setForeground(Color.RED); //글자 색 설정
-        frame.getContentPane().add(startBtn); //시작 버튼 추가
+        mainPanel.add(startBtn); //시작 버튼 추가
         
         //시작 버튼에 대한 ActionListener 
         addActionToStartButton();
     }
 	
 	public void addActionToStartButton() {
-        startBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // 시작 화면 프레임 닫기
-                new Level(); // BubbleGame 호출
-            }
-        });
-    }
+	    startBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+				String name = textField.getText().trim(); // textField에서 입력된 이름 가져오기
+				mainFrame.getContentPane().removeAll();
+				level = new Level(name, mainFrame);
+				mainFrame.getContentPane().add(level);
+				mainPanel.setFocusable(false);
+				mainFrame.revalidate(); // 프레임을 다시 그리도록 호출
+				mainFrame.repaint();
+	        }
+	    });
+	}	
 	
 	public void setImage() {
-		img_label = new JLabel(img_icon);
-		img_label.setBounds(15, -200, img_icon.getIconWidth(), img_icon.getIconWidth());
-		frame.getContentPane().add(img_label);
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setVisible(true);
+		img_icon = Toolkit.getDefaultToolkit().createImage("image/game_intro.png");
+		img_label = new JLabel(new ImageIcon(img_icon));
+		img_label.setBounds(15, -200, 960, 960);
+		mainPanel.add(img_label);
+		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setVisible(true);
 	}
 	
 	public void setFrame() {	
-		frame = new JFrame("시작 화면");
-        frame.setSize(1000, 700);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+		mainFrame = new JFrame("시작 화면");
+		mainFrame.setSize(1000, 800);
+		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.getContentPane().setLayout(null);
+		mainFrame.setAlwaysOnTop(true);
 
+		// Main 클래스의 패널 생성
+        mainPanel = new JPanel();       
+        mainPanel.setLayout(null);
+        mainFrame.getContentPane().add(mainPanel); // mainPanel을 프레임에 추가
+        mainPanel.setBounds(0, 0, mainFrame.getWidth(), mainFrame.getHeight());
+        mainPanel.setBackground(Color.black);
+        
         //JTextField 설정
         textField = new JTextField();
         textField.setFont(font1);
         textField.setBounds(400, 400, 200, 30);
-        frame.getContentPane().add(textField);
+		mainPanel.add(textField);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		new Main();
 	}
 }

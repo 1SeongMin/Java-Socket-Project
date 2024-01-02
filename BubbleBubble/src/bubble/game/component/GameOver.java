@@ -3,7 +3,7 @@ package bubble.game.component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import bubble.game.BubbleFrame;
+import bubble.game.BubblePanel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
 public class GameOver extends JLabel{
 	
 	// 의존성 콤포지션
-	private static BubbleFrame mContext;
+	private static BubblePanel mContext;
 	
 	// 위치 상태
 	private int x;
@@ -25,7 +25,7 @@ public class GameOver extends JLabel{
 
 
 
-	public GameOver(BubbleFrame mContext) {
+	public GameOver(BubblePanel mContext) {
 		this.mContext = mContext;
 		initObject();
 		initSetting();

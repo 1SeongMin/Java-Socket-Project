@@ -10,7 +10,7 @@ import javax.sound.sampled.FloatControl;
 public class GameOverBGM {
     public GameOverBGM(){
         try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("sound/GameOver.wav"));
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("sound/bgm.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(ais);
             

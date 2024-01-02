@@ -32,15 +32,15 @@ public class BackgroundEnemyService implements Runnable{
 	public void run() {
 		while(enemy.getState()==0) {
 			
-			Color leftColor = new Color(image.getRGB(enemy.getX() - 5, enemy.getY() - 25));
-			Color rightColor = new Color(image.getRGB(enemy.getX() + 80, enemy.getY() - 25));
+			Color leftColor = new Color(image.getRGB(enemy.getX() - 5, enemy.getY() - 35));
+			Color rightColor = new Color(image.getRGB(enemy.getX() + 80, enemy.getY() - 35));
 			// -2가 나온다는 뜻은 바닥에 색깔이 없이 흰색
-			int bottomColor = image.getRGB(enemy.getX() + 25, enemy.getY() - 8) // -1
-					+ image.getRGB(enemy.getX()+55, enemy.getY() - 8); // -1
+			int bottomColor = image.getRGB(enemy.getX() + 25, enemy.getY() + 8) // -1
+					+ image.getRGB(enemy.getX()+55, enemy.getY() + 8); // -1
 			
 			// 바닥 충돌 확인
 			if(bottomColor != -2) { // 흰색이 아닐때. 
-				System.out.println("바텀 칼러 : "+bottomColor);
+				//System.out.println("바텀 칼러 : "+bottomColor);
 				//System.out.println("바닥에 충돌함");
 				enemy.setDown(false);
 			}else { // -2 일때 실행됨 => 내 바닥색깔이 하얀색이라는 것

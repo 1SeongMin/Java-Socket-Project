@@ -1,20 +1,19 @@
 package bubble.game.component;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
-import bubble.game.BubbleFrame;
+import bubble.game.BubblePanel;
 import bubble.game.Moveable;
 import bubble.game.service.BackgroundEnemyService;
 import bubble.game.state.EnemyWay;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
+
 @Getter
 @Setter
 public class Enemy extends JLabel implements Moveable {
 
-	private BubbleFrame mContext;
+	private BubblePanel bubblePanel;
 	private Player player; // 플레이어 추가. 
 	
 	// 위치 상태
@@ -38,12 +37,12 @@ public class Enemy extends JLabel implements Moveable {
 
 	private ImageIcon enemyR, enemyL;
 
-	public Enemy(BubbleFrame mContext, EnemyWay enemyWay) {
-		this.mContext = mContext;
-		this.player = mContext.getPlayer();
+	public Enemy(BubblePanel bubblePanel, EnemyWay enemyWay) {
+		this.bubblePanel = bubblePanel;
+		//this.player = bubblePanel.getPlayer();
 		initObject();
 		initSetting();
-		initBackgroundEnemyService();
+		initBackgroundEnemyService1();
 		initEnemyDirection(enemyWay);
 	}
 
@@ -54,7 +53,7 @@ public class Enemy extends JLabel implements Moveable {
 
 	private void initSetting() {
 		x = 480;
-		y = 178;
+		y = 138;
 
 		left = false;
 		right = false;
@@ -78,8 +77,17 @@ public class Enemy extends JLabel implements Moveable {
 			left();
 		}
 	}
-	
-	private void initBackgroundEnemyService() {
+
+	//적의 상태가 1이면 죽은 상태 -> true를 반환, 아니면 false를 반환
+	public boolean isDead() {
+		return state == 1;
+	}
+
+
+	private void initBackgroundEnemyService1() {
+		new Thread(new BackgroundEnemyService(this)).start();
+	}
+	private void initBackgroundEnemyService2() {
 		new Thread(new BackgroundEnemyService(this)).start();
 	}
 
@@ -93,9 +101,13 @@ public class Enemy extends JLabel implements Moveable {
 				setIcon(enemyL);
 				x = x - SPEED;
 				setLocation(x, y);
-				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
-					if (player.getState() == 0 && getState() == 0) 
-						player.reduceLife(); //목숨 감소
+				for (Player player : bubblePanel.getPlayers()) {
+					if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
+						if (player.getState() == 0 && getState() == 0)
+							player.reduceLife(); //목숨 감소
+						if (player.getState() == 1 && getState() == 0)
+							player.die();
+					}
 				}
 				try {
 					Thread.sleep(10); // 0.01초
@@ -117,9 +129,13 @@ public class Enemy extends JLabel implements Moveable {
 				setIcon(enemyR);
 				x = x + SPEED;
 				setLocation(x, y);
-				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
-					if (player.getState() == 0 && getState() == 0) 
-						player.reduceLife(); //목숨 감소
+				for (Player player : bubblePanel.getPlayers()) {
+					if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
+						if (player.getState() == 0 && getState() == 0)
+							player.reduceLife(); //목숨 감소
+						if (player.getState() == 1 && getState() == 0)
+							player.die();
+					}
 				}
 				try {
 					Thread.sleep(10); // 0.01초
@@ -140,9 +156,13 @@ public class Enemy extends JLabel implements Moveable {
 			for(int i=0; i<130/JUMPSPEED; i++) {
 				y = y - JUMPSPEED;
 				setLocation(x, y);
-				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
-					if (player.getState() == 0 && getState() == 0) 
-						player.reduceLife(); //목숨 감소
+				for (Player player : bubblePanel.getPlayers()) {
+					if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
+						if (player.getState() == 0 && getState() == 0)
+							player.reduceLife(); //목숨 감소
+						if (player.getState() == 1 && getState() == 0)
+							player.die();
+					}
 				}
 				try {
 					Thread.sleep(5);
@@ -165,9 +185,11 @@ public class Enemy extends JLabel implements Moveable {
 			while(down) {
 				y = y + JUMPSPEED;
 				setLocation(x, y);
-				if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
-					if (player.getState() == 0 && getState() == 0) 
-						player.reduceLife(); //목숨 감소 
+				for (Player player : bubblePanel.getPlayers()) {
+					if (Math.abs(x - player.getX()) < 50 && Math.abs(y - player.getY()) < 50) {
+						if (player.getState() == 0 && getState() == 0)
+							player.reduceLife(); //목숨 감소
+					}
 				}
 				try {
 					Thread.sleep(3);
